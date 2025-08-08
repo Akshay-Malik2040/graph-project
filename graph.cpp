@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
 class Graph{
@@ -6,7 +7,7 @@ public:
     int vertices;
     int edges;
     bool directed;
-    int** adjMat;
+    vector<vector<int>> adjMat;
 
 public:
 
@@ -14,17 +15,10 @@ public:
         this->vertices=v;
         this->edges=e;
         this->directed=dir;
+    }
 
-        this->adjMat= new int*[vertices];
-        for(int i=0;i<vertices;i++){
-            adjMat[i]=new int[vertices];
-        }
-
-        for(int i=0;i<vertices;i++){
-            for(int j=0;j<vertices;j++){
-                adjMat[i][j]=0;
-            }
-        }
+    void initAdjMat(){
+        this->adjMat=vector<vector<int>> (vertices,vector<int>(vertices,0));
     }
 
     void addEdge(int u,int v){
@@ -63,6 +57,7 @@ int main(){
     cout<<"Enter the no of vertices and edges and directedBoolean"<<endl;
     cin>>v>>e>>d;
     Graph* g1=new Graph(v,e,d);
+    g1->initAdjMat();
     initGraph(g1);
     g1->print();
     return 0;
