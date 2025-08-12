@@ -99,6 +99,31 @@ void bfsTraversalFast(int node,unordered_map<int,list<int>>adjlist,queue<int> &q
         }
     }
 
+    void dfsTraversalFast(int node,unordered_map<int,list<int>>&adjList,unordered_map<int,bool> &vis,vector<int> &ans){
+        ans.push_back(node);
+        vis[node]=true;
+        for(auto i:adjList[node]){
+            if(!vis[i]){
+                dfsTraversalFast(i,adjList,vis,ans);
+            }
+        }
+    }
+
+    void dfsTraversal(Graph* g,int node){
+        unordered_map<int,bool> vis;
+        vector<int> ans;
+        dfsTraversalFast(node,g->adjList,vis,ans);
+        for(int i=0;i<g->adjList.size();i++){
+            if(!vis[i]){
+                dfsTraversalFast(i,g->adjList,vis,ans);
+            }
+        }
+
+        for(auto i: ans){
+            cout<<i<<" ";
+        }
+    }
+
 int main(){
     int v;
     int e;
@@ -108,6 +133,9 @@ int main(){
     Graph* g1=new Graph(v,e,d);
     initGraph(g1);
     g1->print();
-    bfsTraversal(g1,0);
+    cout<<endl<< "BFS Traversal :"<<endl;
+    bfsTraversal(g1,1);
+    cout<<endl<< "DFS Traversal :"<<endl;
+    dfsTraversal(g1,0);
     return 0;
 }
