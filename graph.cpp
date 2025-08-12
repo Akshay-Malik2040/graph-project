@@ -63,7 +63,7 @@ void initGraph(Graph* g){
     }
 }
 
-void bfsTraversalFast(int node,unordered_map<int,list<int>>adjlist,queue<int> &q,unordered_map<int,bool> &vis,vector<int> &ans){
+void bfsTraversalFast(int node,unordered_map<int,list<int>>&adjlist,queue<int> &q,unordered_map<int,bool> &vis,vector<int> &ans){
     
         q.push(node);
         vis[node]=true;
@@ -88,7 +88,7 @@ void bfsTraversalFast(int node,unordered_map<int,list<int>>adjlist,queue<int> &q
         unordered_map<int,bool> vis;
 
         bfsTraversalFast(node,g->adjList,q,vis,ans);
-        for(int i=0;i<g->adjList.size();i++){
+        for(int i=0;i<g->vertices;i++){
             if(!vis[i]){
                 bfsTraversalFast(i,g->adjList,q,vis,ans);
             }
@@ -113,7 +113,7 @@ void bfsTraversalFast(int node,unordered_map<int,list<int>>adjlist,queue<int> &q
         unordered_map<int,bool> vis;
         vector<int> ans;
         dfsTraversalFast(node,g->adjList,vis,ans);
-        for(int i=0;i<g->adjList.size();i++){
+        for(int i=0;i<g->vertices;i++){
             if(!vis[i]){
                 dfsTraversalFast(i,g->adjList,vis,ans);
             }
