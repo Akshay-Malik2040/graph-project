@@ -2,6 +2,7 @@
 #include <vector>
 #include <unordered_map>
 #include<list>
+#include <queue>
 using namespace std;
 
 class Graph{
@@ -62,6 +63,42 @@ void initGraph(Graph* g){
     }
 }
 
+void bfsTraversalFast(int node,unordered_map<int,list<int>>adjlist,queue<int> &q,unordered_map<int,bool> &vis,vector<int> &ans){
+    
+        q.push(node);
+        vis[node]=true;
+
+        while(!q.empty()){
+            int front=q.front();
+            q.pop();
+            ans.push_back(front);
+            for(auto i:adjlist[front]){
+                if(!vis[i]){
+                    q.push(i);
+                    vis[i]=true;
+                }
+            }
+        }
+}
+   
+// Traversal
+    void bfsTraversal(Graph* g,int node){
+        queue<int> q;
+        vector<int> ans;
+        unordered_map<int,bool> vis;
+
+        bfsTraversalFast(node,g->adjList,q,vis,ans);
+        for(int i=0;i<g->adjList.size();i++){
+            if(!vis[i]){
+                bfsTraversalFast(i,g->adjList,q,vis,ans);
+            }
+        }
+
+        for(auto i:ans){
+            cout<< i <<" ";
+        }
+    }
+
 int main(){
     int v;
     int e;
@@ -71,5 +108,6 @@ int main(){
     Graph* g1=new Graph(v,e,d);
     initGraph(g1);
     g1->print();
+    bfsTraversal(g1,0);
     return 0;
 }
